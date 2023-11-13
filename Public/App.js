@@ -13,7 +13,7 @@ async function connectWallet() {
     }
 
     // Example: POST request to your backend
-    fetch('/thorswap/swapBSCtoBNB', {
+    fetch('/thorswap/swapBTCtoBSC', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
