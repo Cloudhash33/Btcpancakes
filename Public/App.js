@@ -11,4 +11,21 @@ async function connectWallet() {
     } else {
         console.log('No Ethereum wallet found. Install MetaMask or use WalletConnect.');
     }
+
+    // Example: POST request to your backend
+    fetch('/thorswap/swapBTCtoBNB', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ amount: amount }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('status').innerText = 'Swap successful: ' + JSON.stringify(data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('status').innerText = 'Error during swap';
+    });
 }
