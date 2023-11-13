@@ -27,6 +27,6 @@ A step-by-step series of examples that tell you how to get a development environ
 
 1. Clone the repo:
    ```sh
-   git clone https://github.com/cloudhash33/Biycoinpancakes.git
+   git clone https://github.com/cloudhash33/Bitcoinpancakes.git
 npm install
 npm start
