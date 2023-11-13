@@ -1,24 +1,20 @@
-npm install web3
 const express = require('express');
 const router = express.Router();
 const Web3 = require('web3');
-
-// Configure Web3 with a BSC node
-const web3 = new Web3('https://bsc-dataseed.binance.org/');
+const web3 = new Web3(process.env.INFURA_URL);
+const contractABI = require('../path/to/your/contractABI.json');
+const contractAddress = 'YOUR_CONTRACT_ADDRESS';
 
 router.post('/swapBNBtoToken', async (req, res) => {
-    const { amount, tokenAddress } = req.body; // amount in BNB, address of the token to swap to
+    const { amount, tokenAddress } = req.body;
 
-    try {
-        // Logic to interact with PancakeSwap Router Contract for the swap
-        // Note: This is complex and involves interacting with a smart contract,
-        // creating and signing transactions, etc.
+    // PancakeSwap swap logic here
 
-        res.json({ success: true, message: 'Swap executed' });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Error occurred during the swap');
-    }
+    // Send fee to FeeCollector contract
+    const feeCollectorContract = new web3.eth.Contract(contractABI, contractAddress);
+    // Assuming fee calculation and sending logic
+
+    res.json({ message: 'Swap initiated', swappedAmount: /* result from swap */ });
 });
 
 module.exports = router;
