@@ -7,14 +7,23 @@ const contractAddress = 'YOUR_CONTRACT_ADDRESS';
 
 router.post('/swapBNBtoToken', async (req, res) => {
     const { amount, tokenAddress } = req.body;
+    const feePercentage = 0.001; // 0.1%
+    const feeAmount = amount * feePercentage;
+    const amountAfterFee = amount - feeAmount;
 
-    // PancakeSwap swap logic here
+    try {
+        // PancakeSwap swap logic here
+        // Make sure to implement the logic to interact with PancakeSwap's contract
 
-    // Send fee to FeeCollector contract
-    const feeCollectorContract = new web3.eth.Contract(contractABI, contractAddress);
-    // Assuming fee calculation and sending logic
+        // Send fee to FeeCollector contract
+        const feeCollectorContract = new web3.eth.Contract(contractABI, contractAddress);
+        // Logic to send the fee to the contract
 
-    res.json({ message: 'Swap initiated', swappedAmount: /* result from swap */ });
+        res.json({ message: 'Swap initiated', swappedAmount: /* result from swap */ });
+    } catch (error) {
+        console.error('Error in swap:', error);
+        res.status(500).send('Error occurred during the swap');
+    }
 });
 
 module.exports = router;
