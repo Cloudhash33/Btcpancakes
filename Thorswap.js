@@ -2,28 +2,29 @@ npm install thorswap-sdk
 
 const express = require('express');
 const router = express.Router();
-const ThorSwapSDK = require('thorswap-sdk'); // assuming such an import is needed
-
-// Assuming the SDK provides a method to initialize it with necessary parameters
-const thorSwap = new ThorSwapSDK({ /* configuration parameters */ });
+const Web3 = require('web3');
+const web3 = new Web3(process.env.INFURA_URL);
+const contractABI = require('../path/to/your/contractABI.json');
+const contractAddress = 'YOUR_CONTRACT_ADDRESS';
 
 router.post('/swapBTCtoBNB', async (req, res) => {
-    const { amount } = req.body; // amount in BTC
-    const fee = amount * 0.001; // 0.1% fee
-    const amountAfterFee = amount - fee;
+    const { amount } = req.body;
+    const feePercentage = 0.001; // 0.1%
+    const feeAmount = amount * feePercentage;
+    const amountAfterFee = amount - feeAmount;
 
-    try {
-        // Assuming the SDK provides a method to perform the swap
-        const swapResult = await thorSwap.swapBTCtoBNB(amountAfterFee);
-        
-        // Additional logic to handle the swap result and fees
-        // ...
+    // Assuming ThorSwap SDK or API interaction
+    // Perform swap logic here
 
-        res.json({ success: true, swapResult });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Error occurred during the swap');
-    }
+    // Send fee to FeeCollector contract
+    const feeCollectorContract = new web3.eth.Contract(contractABI, contractAddress);
+    feeCollectorContract.methods.receive().send({
+        from: 'YOUR_ACCOUNT_ADDRESS',
+        value: web3.utils.toWei(feeAmount.toString(), 'ether'),
+        // Additional transaction parameters
+    });
+
+    res.json({ message: 'Swap initiated', amountAfterFee });
 });
 
 module.exports = router;
