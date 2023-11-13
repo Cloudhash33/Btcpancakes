@@ -1,0 +1,26 @@
+{
+  "name": "FeeCollector",
+  "version": "1.0.0",
+  "functions": [
+    {
+      "name": "transfer",
+      "inputs": [
+        {
+          "name": "_from",
+          "type": "address"
+        },
+        {
+          "name": "_to",
+          "type": "address"
+        },
+        {
+          "name": "_value",
+          "type": "uint256"
+        }
+      ],
+      "outputs": [],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]
+}
